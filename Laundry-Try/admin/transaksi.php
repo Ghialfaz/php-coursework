@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Laundry</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.css">
+    <script type="text/javascript" src="../assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.js"></script>
+</head>
+
+<body style="background-color: #f0f0f0;">
 <?php include "header.php"; ?>
 
 <div class="container">
@@ -71,3 +83,5 @@
 </div>
 
 <?php include "footer.php"; ?>
+</body>
+</html>
