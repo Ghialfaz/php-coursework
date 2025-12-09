@@ -65,7 +65,7 @@
                         ?>
                     </td>
                     <td>
-                        <a href="transaksiInvoice.php?id=<?php echo $d['transaksi_id']; ?>" target="_blank" class="btn btn-sm btn-warning">
+                        <a href="transaksiInvoice.php?id=<?php echo $d['transaksi_id']; ?>" target="_self" class="btn btn-sm btn-warning">
                             Invoice
                         </a>
                         <a href="transaksiEdit.php?id=<?php echo $d['transaksi_id']; ?>" class="btn btn-sm btn-info">

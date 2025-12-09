@@ -1,0 +1,92 @@
+<?php include "header.php"; 
+include "../koneksi.php";
+?>
+
+<div class="container">
+    <div class="panel">
+        <div class="panel-heading">
+            <h4>Edit Transaksi Laundry</h4>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-8 col-md-offset-2">
+                <a href="transaksi.php" class="btn btn-info pull-right">
+                    kembali
+                </a>
+                <br><br>
+                <?php
+                $id = $_GET["id"];
+                $transaksi = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE transaksi_id='$id'");
+                while ($t = mysqli_fetch_array($transaksi)) :
+                ?>
+                <form action="transaksiUpdate.php" method="post">
+                    <input type="hidden" name="id" value="<?php echo $t["transaksi_id"]; ?>">
+                    <div class="form-group">
+                        <label>Pelanggan</label>
+                        <select name="pelanggan" class="form-control" require>
+                            <option value="">- Pilih Pelanggan</option>
+                            <?php
+                            $data = mysqli_query($koneksi, "SELECT * FROM pelanggan");
+                            while ($d = mysqli_fetch_array($data)) :
+                            ?>
+                            <option <?php if ($d["pelanggan_id"] == $t["transaksi_pelanggan"]){ echo "selected='selected'"; }?> value="<?php echo $d["pelanggan_id"]; ?>"><?php echo $d["pelanggan_nama"]; ?></option>
+                            <?php endwhile; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Berat</label>
+                        <input type="number" class="form-control" name="berat" placeholder="Masukkan berat cucian .." value="<?php echo $t['transaksi_berat']; ?>" require>
+                    </div>
+                    <div class="form-group">
+                        <label>Tgl. Selesai</label>
+                        <input type="date" class="form-control" name="tgl_selesai" value="<?php echo $t['transaksi_tgl_selesai']; ?>" require>
+                    </div>
+                    <br>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th>Jenis Pakaian</th>
+                            <th width="20%">Jumlah</th>
+                        </tr>
+                        <?php
+                        $id_transaksi = $t["transaksi_id"];
+                        $pakaian = mysqli_query($koneksi, "SELECT * FROM pakaian WHERE pakaian_transaksi='$id_transaksi'");
+                        while ($p = mysqli_fetch_array($pakaian)) :
+                        ?>
+                        <tr>
+                            <td><input type="text" class="form-control" name="jenis_pakaian[]" value="<?php echo $p['pakaian_jenis']; ?>"></td>
+                            <td><input type="number" class="form-control" name="jumlah_pakaian[]" value="<?php echo $p['pakaian_jumlah']; ?>"></td>
+                        </tr>
+                        <?php endwhile; ?>
+                        <tr>
+                            <td><input type="text" class="form-control" name="jenis_pakaian[]"></td>
+                            <td><input type="number" class="form-control" name="jumlah_pakaian[]"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="form-control" name="jenis_pakaian[]"></td>
+                            <td><input type="number" class="form-control" name="jumlah_pakaian[]"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="form-control" name="jenis_pakaian[]"></td>
+                            <td><input type="number" class="form-control" name="jumlah_pakaian[]"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="form-control" name="jenis_pakaian[]"></td>
+                            <td><input type="number" class="form-control" name="jumlah_pakaian[]"></td>
+                        </tr>
+                    </table>
+                    <div class="form-group alert alert-info">
+                        <label>Status</label>
+                        <select class="form-control" name="status" require>
+                            <option <?php if($t["transaksi_status"] == "0") {echo "selected='selected'";} ?> value="0">PROSES</option>
+                            <option <?php if($t["transaksi_status"] == "1") {echo "selected='selected'";} ?> value="1">DI CUCI</option>
+                            <option <?php if($t["transaksi_status"] == "2") {echo "selected='selected'";} ?> value="2">SELESAI</option>
+                        </select>
+                    </div>
+                    <input type="submit" value="Simpan" class="btn btn-primary">
+                </form>
+                <?php endwhile; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php include "footer.php"; ?>
